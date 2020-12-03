@@ -1,13 +1,10 @@
 use v6.d;
 
-my @a='123'.comb; say @a xx 3; say (@a xx 3).flat; say (@a xx *).flat;
-
 my @input = 'input'.IO.lines;
 my @map;
 
 for @input -> $line {
-    my $geology = ($line.comb xx *).flat;
-    @map.push($geology);
+    @map.push(($line.comb xx *).flat);
 }
 
 sub detect_collisions (Int $sx, Int $sy) {
