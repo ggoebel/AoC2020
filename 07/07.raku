@@ -2,19 +2,18 @@
 use v6.d;
 
 grammar Baggage {
-    rule TOP      { <rule> ** 1..* }
-    rule rule     { <color> <.bag-contain> <contents> '.' }
-    rule contents { [ <.empty> | <quantity> <color> <.bag> ] ** 1..* % ',' }
+    rule TOP      { <rule>+ }
+    rule rule     { <color> 'bags contain' <contents> '.' }
+    rule contents { 'no other bags' | [ <quantity> <color> <.bag> ]+ % ',' }
     token color       { \w+ \W+ \w+ }
-    token bag-contain { 'bags contain' }
-    token empty       { 'no other bags' }
     token quantity    { \d+ }
-    token bag         { 'bag' 's'? }
+    token bag         { 'bag' | 'bags' }
 }
 
 class BaggageActions {
     has $.inside = {};
     has $.outside = {};
+
     method rule($/) {
         return  if 'no other bags' eq ~$<contents>;
         my $outer = ~$<color>;
