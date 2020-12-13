@@ -16,11 +16,12 @@ class Automaton {
             :width( .pick.chars ),
             :height( .elems ),
             :a( .map({ [.comb] }) ),
-            :tolerance($tolerance)
+            :$tolerance
         )
         given $s.lines.cache;
     }
 
+    # gist is the method that say calls implicitly
     method gist { join "\n", map { .join }, self.a }
 
     method is_occupied (Int $r, Int $c, $d --> Bool) {
